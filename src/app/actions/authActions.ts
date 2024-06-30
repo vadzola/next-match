@@ -1,6 +1,6 @@
 'use server'
 
-import { signIn } from '@/auth'
+import { signIn, signOut } from '@/auth'
 import { prisma } from '@/lib/prisma'
 import { LoginSchema } from '@/lib/schemas/loginSchema'
 import { RegisterSchema, registerSchema } from '@/lib/schemas/registerSchema'
@@ -8,6 +8,7 @@ import { ActionResult } from '@/types'
 import { User } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import { AuthError } from 'next-auth'
+
 
 
 export async function signInUser(data: LoginSchema): Promise<ActionResult<string>> {
@@ -32,6 +33,10 @@ export async function signInUser(data: LoginSchema): Promise<ActionResult<string
         return { status: 'error', error: 'Something else went wrong' }
       }
   }
+}
+
+export async function signOutUser(){ 
+  await signOut({redirectTo: '/'})
 }
 
 export async function registerUser(
