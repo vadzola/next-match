@@ -40,26 +40,34 @@ export default function LoginForm() {
       </CardHeader>
       <CardBody>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            defaultValue=''
-            label='Email'
-            variant='bordered'
-            {...register('email')}
-            isInvalid={!!errors.email}
-            errorMessage={errors.email?.message as string}
-          />
-          <Input
-            defaultValue=''
-            label='Password'
-            variant='bordered'
-            type='password'
-            {...register('password')}
-            isInvalid={!!errors.password}
-            errorMessage={errors.password?.message as string}
-          />
-          <Button isLoading={isSubmitting} isDisabled={!isValid} fullWidth color='secondary' type='submit'>
-            Login
-          </Button>
+          <div className='space-y-4'>
+            <Input
+              defaultValue=''
+              label='Email'
+              variant='bordered'
+              {...register('email')}
+              isInvalid={!!errors.email}
+              errorMessage={errors.email?.message as string}
+            />
+            <Input
+              defaultValue=''
+              label='Password'
+              variant='bordered'
+              type='password'
+              {...register('password')}
+              isInvalid={!!errors.password}
+              errorMessage={errors.password?.message as string}
+            />
+            <Button
+              isLoading={isSubmitting}
+              isDisabled={!isValid}
+              fullWidth
+              color='secondary'
+              type='submit'
+            >
+              Login
+            </Button>
+          </div>
         </form>
       </CardBody>
     </Card>
