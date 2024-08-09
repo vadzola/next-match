@@ -9,10 +9,10 @@ datasource db {
 
 model Account {
   id                String  @id @default(cuid())
-  userId            String  @map("user_id")
+  userId            String
   type              String
   provider          String
-  providerAccountId String  @map("provider_account_id")
+  providerAccountId String
   refresh_token     String? @db.Text
   access_token      String? @db.Text
   expires_at        Int?
@@ -30,7 +30,7 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
+  emailVerified DateTime?
   passwordHash  String
   image         String?
   accounts      Account[]
@@ -38,22 +38,22 @@ model User {
 }
 
 model Member {
-  id          String   @id @default(cuid())
-  userId      String   @unique
-  name        String
-  gender      String
-  dateOfBirth DateTime
-  created     DateTime @default(now())
-  updated     DateTime @default(now())
-  description String
-  city        String
-  country     String
-  image       String?
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  photos      Photo[]
-  sourceLikes Like[]  @relation("source")
-  targetLikes Like[]  @relation("target")
-  senderMessages Message[] @relation("sender")
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  name              String
+  gender            String
+  dateOfBirth       DateTime
+  created           DateTime  @default(now())
+  updated           DateTime  @default(now())
+  description       String
+  city              String
+  country           String
+  image             String?
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  photos            Photo[]
+  sourceLikes       Like[]    @relation("source")
+  targetLikes       Like[]    @relation("target")
+  senderMessages    Message[] @relation("sender")
   recipientMessages Message[] @relation("recipient")
 }
 
@@ -67,24 +67,24 @@ model Photo {
 }
 
 model Like {
-  sourceUserId  String
+  sourceUserId String
   sourceMember Member @relation("source", fields: [sourceUserId], references: [userId], onDelete: Cascade)
 
-  targetUserId  String
-  targetMember  Member @relation("target", fields: [targetUserId], references: [userId], onDelete: Cascade)
+  targetUserId String
+  targetMember Member @relation("target", fields: [targetUserId], references: [userId], onDelete: Cascade)
 
   @@id([sourceUserId, targetUserId])
 }
 
 model Message {
-  id      String  @id @default(cuid())
-  text    String
-  created DateTime @default(now())
-  senderId String?
-  recipientId String?
-  sender Member? @relation("sender", fields: [senderId], references: [userId], onDelete: SetNull)
-  recipient Member? @relation("recipient", fields: [recipientId], references: [userId], onDelete: SetNull)
-  dateRead DateTime?
-  senderDeleted Boolean @default(false)
-  recipientDeleted Boolean @default(false)
+  id               String    @id @default(cuid())
+  text             String
+  created          DateTime  @default(now())
+  senderId         String?
+  recipientId      String?
+  sender           Member?    @relation("sender", fields: [senderId], references: [userId], onDelete: SetNull)
+  recipient        Member?    @relation("recipient", fields: [recipientId], references: [userId], onDelete: SetNull)
+  dateRead         DateTime?
+  senderDeleted    Boolean   @default(false)
+  recipientDeleted Boolean   @default(false)
 }

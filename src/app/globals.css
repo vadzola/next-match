@@ -1,9 +1,9 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer components {
- .vertical-center {
-  height: calc(100vh - 64px);
-}
+    .vertical-center {
+        height: calc(100vh - 64px);
+    }
 }
